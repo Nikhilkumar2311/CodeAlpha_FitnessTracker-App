@@ -1,3 +1,5 @@
+package com.example.fitnesstrackerapp
+
 import android.os.Bundle
 import android.os.Handler
 import android.content.Intent
