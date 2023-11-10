@@ -13,8 +13,20 @@
         android:theme="@style/Theme.FitnessTrackerApp"
         tools:targetApi="31">
         <activity
+            android:name=".FoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AfterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BeforeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Before"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">
