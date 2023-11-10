@@ -78,7 +78,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
-                            android:text="Every Day 15 min"
+                            android:text="@string/every_day_15_min"
                             android:textColor="#ffff5722"
                             android:textStyle="bold"/>
                         
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="@drawable/btn"
-                    android:text="Get Started"
+                    android:text="@string/get_started"
                     android:textAllCaps="true"
                     android:textColor="#FFF"/>
 
