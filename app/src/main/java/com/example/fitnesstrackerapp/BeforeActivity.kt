@@ -42,6 +42,7 @@ class BeforeActivity : AppCompatActivity() {
                 val value = i + 1
                 Log.i("FIRST", value.toString())
                 val intent = Intent(this, SecondActivity::class.java)
+                intent.putExtra("value", value.toString())
                 startActivity(intent)
                 break
             }
