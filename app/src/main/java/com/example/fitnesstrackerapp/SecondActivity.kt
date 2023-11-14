@@ -197,7 +197,7 @@ class SecondActivity : AppCompatActivity() {
         }.start()
 
         // Change button text and set timer running to true
-        startBtn.text = "Pause"
+        startBtn.text = "PAUSE"
         MTimeRunning = true
     }
 
