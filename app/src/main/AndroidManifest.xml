@@ -16,12 +16,6 @@
             android:name=".SecondActivity"
             android:exported="false" />
         <activity
-            android:name=".BeforeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".FoodActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity

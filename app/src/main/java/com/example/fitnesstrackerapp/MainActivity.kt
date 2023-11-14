@@ -3,47 +3,49 @@ package com.example.fitnesstrackerapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat.startActivity
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var button1: Button
-
+    private lateinit var newArray: IntArray
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Set up the toolbar
-        val toolbar: Toolbar = findViewById(R.id.toolBar)
+        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
 
-        // Initialize the button
-        button1 = findViewById(R.id.startyoga1)
+        newArray = intArrayOf(
+            R.id.bow_pose,
+            R.id.bridge_pose,
+            R.id.chair_pose,
+            R.id.child_pose,
+            R.id.cobbler_pose,
+            R.id.cow_pose,
+            R.id.playji_pose,
+            R.id.pauseji_pose,
+            R.id.plank_pose,
+            R.id.crunches_pose,
+            R.id.situp_pose,
+            R.id.rotation_pose,
+            R.id.twist_pose,
+            R.id.windmill_pose,
+            R.id.legup_pose
+        )
+    }
 
-        // Set a click listener for the button using an anonymous inner class
-        button1.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                // Start the 'BeforeActivity' when the button is clicked
-                val intent = Intent(this@MainActivity, BeforeActivity::class.java)
+    fun Imagebuttonclicked(view: View) {
+        for (i in 0 until newArray.size) {
+            if (view.id == newArray[i]) {
+                val value = i + 1
+                Log.i("FIRST", value.toString())
+                val intent = Intent(this, SecondActivity::class.java)
+                intent.putExtra("value", value.toString())
                 startActivity(intent)
+                break
             }
-        })
-    }
-
-
-    // Function to handle the click event for a different button with the attribute 'android:onClick="beforeage18"'
-    fun beforeage18(view: View) {
-        // Start the 'BeforeActivity' when the corresponding button is clicked
-        val intent = Intent(this@MainActivity, BeforeActivity::class.java)
-        startActivity(intent)
-    }
-
-    // Function to handle the click event for a different button with the attribute 'android:onClick="food"'
-    fun food(view: View) {
-        // Start the 'FoodActivity' when the corresponding button is clicked
-        val intent = Intent(this@MainActivity, FoodActivity::class.java)
-        startActivity(intent)
+        }
     }
 }
