@@ -1,14 +1,23 @@
 package com.example.fitnesstrackerapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.widget.Button
 import android.widget.TextView
 import pl.droidsonroids.gif.GifImageView
 
 class SecondActivity : AppCompatActivity() {
 
     lateinit var buttonValue: String
+    lateinit var startBtn: Button
+    private lateinit var countDownTimer: CountDownTimer
+    lateinit var mtextView: TextView
+    private var MTimeRunning: Boolean = false
+    private var MTimeLeftinmills: Long = 0
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,5 +128,82 @@ class SecondActivity : AppCompatActivity() {
 
         }
 
+        startBtn = findViewById(R.id.startbutton)
+        mtextView = findViewById(R.id.time)
+
+        startBtn.setOnClickListener {
+            if (MTimeRunning) {
+                stopTimer()
+            } else {
+                startTimer()
+            }
+        }
+
+
     }
+
+    private fun stopTimer() {
+        countDownTimer.cancel()
+        MTimeRunning = false
+        startBtn.text = "START"
+    }
+
+    private fun startTimer() {
+        val value1: CharSequence = mtextView.text
+        val num1 = value1.toString()
+        val num2 = num1.substring(0, 2)
+        val num3 = num1.substring(3, 5)
+        val number = Integer.valueOf(num2) * 60 + Integer.valueOf(num3)
+        MTimeLeftinmills = number * 1000L
+
+        updateTimer()
+        countDownTimer = object : CountDownTimer(MTimeLeftinmills, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                MTimeLeftinmills = millisUntilFinished
+                updateTimer()
+            }
+
+            override fun onFinish() {
+                var newvalue = Integer.valueOf(buttonValue) + 1
+                if (newvalue <= 7) {
+                    val intent = Intent(this@SecondActivity, SecondActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.putExtra("value", newvalue.toString())
+                    startActivity(intent)
+                } else {
+                    newvalue = 1
+                    val intent = Intent(this@SecondActivity, SecondActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.putExtra("value", newvalue.toString())
+                    startActivity(intent)
+                }
+            }
+        }.start()
+
+        startBtn.text = "Pause"
+        MTimeRunning = true
+    }
+
+    private fun updateTimer() {
+        val minutes = (MTimeLeftinmills / 60000).toInt()
+        val seconds = (MTimeLeftinmills % 60000 / 1000).toInt()
+        val timeLeftText = StringBuilder()
+        if (minutes < 10) {
+            timeLeftText.append("0")
+        }
+        timeLeftText.append("$minutes:")
+
+
+        if (seconds < 10) {
+            timeLeftText.append("0")
+        }
+        timeLeftText.append(seconds)
+
+        mtextView.text = timeLeftText.toString()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
 }
