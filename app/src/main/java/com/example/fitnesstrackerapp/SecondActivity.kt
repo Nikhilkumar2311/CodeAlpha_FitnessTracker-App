@@ -11,6 +11,7 @@ import pl.droidsonroids.gif.GifImageView
 
 class SecondActivity : AppCompatActivity() {
 
+    // Declaring variables
     lateinit var buttonValue: String
     lateinit var startBtn: Button
     private lateinit var countDownTimer: CountDownTimer
@@ -23,12 +24,16 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
+        // Retrieving value from the intent
         val intent = intent
         buttonValue = intent.getStringExtra("value")!!
 
+        // Converting the button value to an integer
         val intValue = buttonValue.toInt()
 
+        // Setting up UI based on the button value
         when(intValue){
+            // Cases for different button values
             1 ->{
                 findViewById<GifImageView>(R.id.basic).setImageResource(R.drawable.exersice_1)
                 val step = findViewById<TextView>(R.id.step)
@@ -119,6 +124,7 @@ class SecondActivity : AppCompatActivity() {
                 val step2 = getString(R.string.pose14)
                 step.text = step2
             }
+            // Default case
             else ->{
                 findViewById<GifImageView>(R.id.basic).setImageResource(R.drawable.exersice_1)
                 val step = findViewById<TextView>(R.id.step)
@@ -128,9 +134,11 @@ class SecondActivity : AppCompatActivity() {
 
         }
 
+        // Initializing UI elements
         startBtn = findViewById(R.id.startbutton)
         mtextView = findViewById(R.id.time)
 
+        // Set click listener for the start button
         startBtn.setOnClickListener {
             if (MTimeRunning) {
                 stopTimer()
@@ -142,13 +150,16 @@ class SecondActivity : AppCompatActivity() {
 
     }
 
+    // Function to stop the timer
     private fun stopTimer() {
         countDownTimer.cancel()
         MTimeRunning = false
         startBtn.text = "START"
     }
 
+    // Function to start the timer
     private fun startTimer() {
+        // Extracting minutes and seconds from the timer text view
         val value1: CharSequence = mtextView.text
         val num1 = value1.toString()
         val num2 = num1.substring(0, 2)
@@ -156,7 +167,10 @@ class SecondActivity : AppCompatActivity() {
         val number = Integer.valueOf(num2) * 60 + Integer.valueOf(num3)
         MTimeLeftinmills = number * 1000L
 
+        // Update the timer
         updateTimer()
+
+        // Creating a new countdown timer
         countDownTimer = object : CountDownTimer(MTimeLeftinmills, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 MTimeLeftinmills = millisUntilFinished
@@ -164,6 +178,7 @@ class SecondActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                // When the timer finishes, increment the button value and start a new activity
                 var newvalue = Integer.valueOf(buttonValue) + 1
                 if (newvalue <= 7) {
                     val intent = Intent(this@SecondActivity, SecondActivity::class.java)
@@ -171,6 +186,7 @@ class SecondActivity : AppCompatActivity() {
                     intent.putExtra("value", newvalue.toString())
                     startActivity(intent)
                 } else {
+                    // If the button value exceeds 7, reset to 1
                     newvalue = 1
                     val intent = Intent(this@SecondActivity, SecondActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -180,10 +196,12 @@ class SecondActivity : AppCompatActivity() {
             }
         }.start()
 
+        // Change button text and set timer running to true
         startBtn.text = "Pause"
         MTimeRunning = true
     }
 
+    // Function to update the timer text view
     private fun updateTimer() {
         val minutes = (MTimeLeftinmills / 60000).toInt()
         val seconds = (MTimeLeftinmills % 60000 / 1000).toInt()
@@ -202,6 +220,7 @@ class SecondActivity : AppCompatActivity() {
         mtextView.text = timeLeftText.toString()
     }
 
+    // Override onBackPressed to handle back button behavior if needed
     override fun onBackPressed() {
         super.onBackPressed()
     }

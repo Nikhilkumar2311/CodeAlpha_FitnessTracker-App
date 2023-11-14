@@ -22,9 +22,6 @@
             android:name=".FoodActivity"
             android:exported="false" />
         <activity
-            android:name=".AfterActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity

@@ -5,51 +5,44 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toolbar
+import androidx.appcompat.widget.Toolbar
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var button1: Button
-    private lateinit var button2: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolBar)
+        // Set up the toolbar
+        val toolbar: Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
 
+        // Initialize the button
         button1 = findViewById(R.id.startyoga1)
-        button2 = findViewById(R.id.startyoga2)
 
+        // Set a click listener for the button using an anonymous inner class
         button1.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View) {
+                // Start the 'BeforeActivity' when the button is clicked
                 val intent = Intent(this@MainActivity, BeforeActivity::class.java)
                 startActivity(intent)
             }
         })
-
-        button2.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                val intent = Intent(this@MainActivity, AfterActivity::class.java)
-                startActivity(intent)
-            }
-        })
-
     }
 
-    private fun setSupportActionBar(toolbar: Toolbar) {
-        TODO("Not yet implemented")
-    }
 
-    fun afterage18(view: View) {
-        val intent = Intent(this@MainActivity, AfterActivity::class.java)
-        startActivity(intent)
-    }
+    // Function to handle the click event for a different button with the attribute 'android:onClick="beforeage18"'
     fun beforeage18(view: View) {
+        // Start the 'BeforeActivity' when the corresponding button is clicked
         val intent = Intent(this@MainActivity, BeforeActivity::class.java)
         startActivity(intent)
     }
+
+    // Function to handle the click event for a different button with the attribute 'android:onClick="food"'
     fun food(view: View) {
+        // Start the 'FoodActivity' when the corresponding button is clicked
         val intent = Intent(this@MainActivity, FoodActivity::class.java)
         startActivity(intent)
     }
